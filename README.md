@@ -9,7 +9,7 @@ SKArchCutter-Swift是一个基于Swift 3.0的可自选切割角的圆角切割�
 
 - 支持使用border
 
-- 支持Swift 3.0
+- 支持Swift 3.0, [Objective-C版本](https://github.com/shevakuilin/SKArchCutter)
 
 - 注意：如果之前设置了`border`和`backgroundColor`请取消，关闭`masksToBounds`(如果打开了话), 请在方法中进行设置
 
