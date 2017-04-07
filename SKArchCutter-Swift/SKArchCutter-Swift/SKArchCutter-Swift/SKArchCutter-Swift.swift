@@ -21,11 +21,11 @@ class SKArchCutter_Swift: NSObject {
     class func cuttingView(view: UIView, direction: UIRectCorner, cornerRadii: CGFloat, borderWidth: CGFloat, borderColor: UIColor, backgroundColor: UIColor)
     {
         var cornerRadii = cornerRadii
-        if view.bounds.size.height != 0 && view.bounds.size.width != 0 {
+        if view.bounds.size.height != 0 && view.bounds.size.width != 0 {// 使用Masonry布局后，view的bounds是异步返回的，这里需要做初步的判断
             let width = view.bounds.size.width
             let height = view.bounds.size.height
-            var image : UIImage? = nil
             
+            // 先利用CoreGraphics绘制一个圆角矩形
             UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
             let currentContext = UIGraphicsGetCurrentContext()
             
@@ -68,16 +68,18 @@ class SKArchCutter_Swift: NSObject {
                     }
                     currentContext?.addLine(to: CGPoint.init(x: borderWidth + cornerRadii, y: borderWidth))
                     
-                    currentContext?.drawPath(using: .fillStroke)
-                    image = UIGraphicsGetImageFromCurrentImageContext()
-                    UIGraphicsEndImageContext()
                 }
-                if (image?.isKind(of: UIImage.self as AnyClass))! {
+                currentContext?.drawPath(using: .fillStroke)
+                let image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                // 绘制完成后，将UIImageView插入到view视图层级的底部
+                if (image?.isKind(of: UIImage.self))! {
                     let baseImageView = UIImageView.init(image: image)
                     view.insertSubview(baseImageView, at: 0)
                 }
             }
-        } else {
+        } else {// 如果没有获取到view的bounds时
             DispatchQueue.main.async {
                 self.cuttingView(view: view, direction: direction, cornerRadii: cornerRadii, borderWidth: borderWidth, borderColor: borderColor, backgroundColor: backgroundColor)
             }
@@ -96,7 +98,8 @@ class SKArchCutter_Swift: NSObject {
     {
         var cornerRadii = cornerRadii
         if imageView.bounds.size.height != 0 && imageView.bounds.size.width != 0 {
-           var image : UIImage? = nil
+            // 先截取UIImageView视图Layer生成的Image，然后再做渲染
+            var image : UIImage? = nil
             if (imageView.image != nil) {
                 image = imageView.image
             }
@@ -108,12 +111,12 @@ class SKArchCutter_Swift: NSObject {
             let currentContext = UIGraphicsGetCurrentContext()
             if (currentContext != nil) {
                 let path = UIBezierPath.init(roundedRect: rect, byRoundingCorners: direction, cornerRadii: CGSize.init(width: cornerRadii - borderWidth, height: cornerRadii - borderWidth))
-                currentContext?.addPath(path as! CGPath)
+                currentContext?.addPath(path.cgPath)
                 currentContext?.clip()
                 
                 image?.draw(in: rect)
                 borderColor.setStroke()// 画笔颜色
-                backgroundColor.setFill()
+                backgroundColor.setFill()// 填充颜色
                 path.stroke()
                 path.fill()
                 image = UIGraphicsGetImageFromCurrentImageContext()
@@ -121,7 +124,7 @@ class SKArchCutter_Swift: NSObject {
             }
             if (image?.isKind(of: UIImage.self))! {
                 imageView.image = image
-            } else {
+            } else {// UITableViewCell的UIImageView，第一次创建赋图时，可能无法获取UIImageView视图layer的图片
                 DispatchQueue.main.async {
                     self.cuttingImageView(imageView: imageView, direction: direction, cornerRadii: cornerRadii, borderWidth: borderWidth, borderColor: borderColor, backgroundColor: backgroundColor)
                 }
