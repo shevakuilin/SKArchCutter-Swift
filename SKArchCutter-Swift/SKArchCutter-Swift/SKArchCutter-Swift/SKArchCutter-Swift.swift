@@ -102,7 +102,12 @@ class SKArchCutter_Swift: NSObject {
             var image : UIImage? = nil
             if (imageView.image != nil) {
                 image = imageView.image
+            } else {
+                DispatchQueue.main.async {
+                    self.cuttingImageView(imageView: imageView, direction: direction, cornerRadii: cornerRadii, borderWidth: borderWidth, borderColor: borderColor, backgroundColor: backgroundColor)
+                }
             }
+
             if cornerRadii == 0 {
                 cornerRadii = imageView.bounds.size.height / 2
             }
