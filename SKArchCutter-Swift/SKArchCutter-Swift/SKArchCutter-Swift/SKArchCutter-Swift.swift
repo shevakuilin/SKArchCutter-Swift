@@ -64,7 +64,7 @@ class SKArchCutter_Swift: NSObject {
                     if direction.contains(UIRectCorner.topRight) {
                         currentContext?.addArc(tangent1End: CGPoint.init(x: width - borderWidth, y: borderWidth), tangent2End: CGPoint.init(x: width - borderWidth - cornerRadii, y: borderWidth), radius: cornerRadii)
                     } else {
-                        currentContext?.addLine(to: CGPoint.init(x: height - borderWidth, y: borderWidth))
+                        currentContext?.addLine(to: CGPoint.init(x: width - borderWidth, y: borderWidth))
                     }
                     currentContext?.addLine(to: CGPoint.init(x: borderWidth + cornerRadii, y: borderWidth))
                     
