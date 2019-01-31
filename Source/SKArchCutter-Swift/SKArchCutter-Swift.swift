@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SKArchCutter_Swift: NSObject {
+public class SKArchCutter_Swift: NSObject {
     
     /** 切割UIView、UIButton和UILabel圆角
      * @param view 需要进行切割的对象
@@ -18,7 +18,7 @@ class SKArchCutter_Swift: NSObject {
      * @param borderColor 边框颜色
      * @param backgroundColor 背景色
      */
-    class func cuttingView(view: UIView, direction: UIRectCorner, cornerRadii: CGFloat, borderWidth: CGFloat, borderColor: UIColor, backgroundColor: UIColor)
+    public class func cuttingView(view: UIView, direction: UIRectCorner, cornerRadii: CGFloat, borderWidth: CGFloat, borderColor: UIColor, backgroundColor: UIColor)
     {
         var cornerRadii = cornerRadii
         if view.bounds.size.height != 0 && view.bounds.size.width != 0 {// 使用Masonry布局后，view的bounds是异步返回的，这里需要做初步的判断
@@ -94,7 +94,7 @@ class SKArchCutter_Swift: NSObject {
      * @param borderColor 边框颜色
      * @param backgroundColor 背景色
      */
-    class func cuttingImageView(imageView: UIImageView, direction: UIRectCorner, cornerRadii: CGFloat, borderWidth: CGFloat, borderColor: UIColor, backgroundColor: UIColor)
+    public class func cuttingImageView(imageView: UIImageView, direction: UIRectCorner, cornerRadii: CGFloat, borderWidth: CGFloat, borderColor: UIColor, backgroundColor: UIColor)
     {
         var cornerRadii = cornerRadii
         if imageView.bounds.size.height != 0 && imageView.bounds.size.width != 0 {
