@@ -19,11 +19,11 @@ SKArchCutter-Swift是一个基于 Swift 的可自选切割角的圆角切割工�
 - 注意：如果之前设置了`border`和`backgroundColor`请取消，关闭`masksToBounds`(如果打开了话), 请在方法中进行设置
 
 ### 效果图 
-<img src="http://ofg0p74ar.bkt.clouddn.com/SKArchCutter.png" width="370" height ="665" />
+<img src="https://upload-images.jianshu.io/upload_images/2660903-f46c568bb12c6b9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/375/format/webp" width="370" height ="665" />
 
 
 ### 测试性能
-<img src="http://ofg0p74ar.bkt.clouddn.com/SKArchCutter.gif" width="370" height ="665" />
+<img src="https://upload-images.jianshu.io/upload_images/2660903-4217dfeb2620cf79.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/372/format/webp" width="370" height ="665" />
 
 
 
